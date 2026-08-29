@@ -322,50 +322,97 @@ const program = [
    MOBILE
    ======================================== */
 
-@media (max-width: 600px) {
+   @media (max-width: 600px) {
 
-  .drawing-program {
-    padding: 40px 25px;
-  }
-
-
-  .drawing-program__title {
-    margin-bottom: 40px;
-
-    font-size: 26px;
-  }
-
-
-  .drawing-program__grid {
-    grid-template-columns: 1fr;
-
-    gap: 45px;
-  }
-
-
-  .drawing-program__number {
-    font-size: 120px;
-
-    margin-bottom: 15px;
-  }
-
-
-  .drawing-program__item-title {
-    font-size: 20px;
-  }
-
-
-  .drawing-program__item-text {
-    font-size: 16px;
-  }
-
-
-  .drawing-program__image {
-    grid-column: 1;
-
-    min-height: 300px;
-  }
-
+.drawing-program {
+  padding: 40px 25px;
 }
 
+
+.drawing-program__title {
+  margin-bottom: 40px;
+
+  font-size: 26px;
+}
+
+
+.drawing-program__grid {
+  grid-template-columns: 1fr;
+
+  gap: 45px;
+}
+
+
+/* ======================================
+   PROGRAM ITEM
+   ====================================== */
+
+.drawing-program__item {
+  display: grid;
+
+  grid-template-columns: 120px 1fr;
+  column-gap: 20px;
+
+  align-items: start;
+
+  width: 100%;
+}
+
+
+/* ======================================
+   NUMBER
+   ====================================== */
+
+.drawing-program__number {
+  grid-column: 1;
+  grid-row: 1 / 3;
+
+  margin: 0;
+
+  font-size: 120px;
+  line-height: 0.8;
+
+  align-self: start;
+}
+
+
+/* ======================================
+   TITLE
+   ====================================== */
+
+.drawing-program__item-title {
+  grid-column: 2;
+  grid-row: 1;
+
+  margin: 0;
+
+  font-size: 20px;
+}
+
+
+/* ======================================
+   TEXT
+   ====================================== */
+
+.drawing-program__item-text {
+  grid-column: 2;
+  grid-row: 2;
+
+  margin: 14px 0 0;
+
+  font-size: 16px;
+}
+
+
+/* ======================================
+   CHAMELEON
+   ====================================== */
+
+.drawing-program__image {
+  grid-column: 1;
+
+  min-height: 300px;
+}
+
+}
 </style>

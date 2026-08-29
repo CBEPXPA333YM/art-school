@@ -265,7 +265,7 @@
    ADVANTAGES TITLE
    ======================================== */
 
-.about-studio__advantages-title {
+   .about-studio__advantages-title {
   position: relative;
 
   z-index: 2;
@@ -277,6 +277,8 @@
   font-size: 32px;
   font-weight: 700;
   line-height: 1.1;
+
+  transform: translateY(80px);
 }
 
 
@@ -325,6 +327,11 @@
   grid-template-columns: repeat(3, 1fr);
 
   gap: 60px;
+
+  /*
+   * Опускаем преимущества ниже рыбы.
+   */
+  margin-top: 250px;
 }
 
 
@@ -461,95 +468,205 @@
    MOBILE
    ======================================== */
 
-@media (max-width: 600px) {
+   @media (max-width: 600px) {
 
-  .about-studio__intro {
-    grid-template-columns: 1fr;
-  }
+/* ========================================
+   1. О СТУДИИ
+   ======================================== */
 
-
-  .about-studio__content {
-    padding: 40px 25px;
-  }
-
-
-  .about-studio__title,
-  .about-studio__advantages-title {
-    font-size: 26px;
-  }
-
-
-  .about-studio__subtitle {
-    font-size: 21px;
-  }
-
-
-  .about-studio__description {
-    font-size: 16px;
-  }
-
-
-  .about-studio__intro-image {
-    height: 300px;
-  }
-
-
-  /* ======================================
-     ADVANTAGES
-     ====================================== */
-
-  .about-studio__advantages {
-    padding: 40px 25px;
-  }
-
-
-  .about-studio__advantages-title {
-    margin-bottom: 30px;
-  }
-
-
-  .about-studio__advantages-list {
-    grid-template-columns: 1fr;
-
-    gap: 40px;
-  }
-
-
-  .about-studio__number {
-    font-size: 120px;
-
-    margin-bottom: 15px;
-  }
-
-
-  .about-studio__advantage-title {
-    font-size: 20px;
-  }
-
-
-  .about-studio__advantage-text {
-    font-size: 16px;
-  }
-
-
-  /* ======================================
-     FISH
-     ====================================== */
-
-  .about-studio__advantages-image {
-    position: absolute;
-
-    top: 0;
-    left: 50%;
-
-    width: 300px;
-    height: 300px;
-
-    max-height: 300px;
-
-    transform: translateX(-50%);
-  }
-
+.about-studio__intro {
+  grid-template-columns: 1fr;
 }
 
+
+.about-studio__content {
+  padding: 50px 25px;
+}
+
+
+.about-studio__title {
+  font-size: 26px;
+}
+
+
+.about-studio__subtitle {
+  margin-top: 18px;
+
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+
+.about-studio__description {
+  margin-top: 24px;
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   ВИШНЯ
+   ======================================== */
+
+.about-studio__intro-image {
+  display: none;
+}
+
+
+/* ========================================
+   2. ВЫ СМОЖЕТЕ
+   ======================================== */
+
+.about-studio__advantages {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 25px 50px;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   РЫБА
+   ======================================== */
+   .about-studio__advantages-image {
+  position: relative;
+
+  top: auto;
+  left: auto;
+
+  order: 1;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  transform: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  pointer-events: none;
+}
+
+
+.about-studio__advantages-image img {
+  display: block;
+
+  width: 420px;
+  height: auto;
+
+  max-width: none;
+
+  object-fit: contain;
+  object-position: top center;
+}
+
+/* ========================================
+   ЗАГОЛОВОК
+   ======================================== */
+
+.about-studio__advantages-title {
+  position: relative;
+
+  z-index: 2;
+
+  order: 2;
+
+  margin: 0 0 40px;
+
+  font-size: 26px;
+
+  transform: none;
+}
+
+
+/* ========================================
+   СПИСОК
+   ======================================== */
+
+.about-studio__advantages-list {
+  order: 3;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 45px;
+
+  margin-top: 0;
+}
+
+
+/* ========================================
+   ОДИН ПУНКТ
+   ======================================== */
+
+.about-studio__advantage {
+  display: grid;
+
+  grid-template-columns: 90px 1fr;
+  grid-template-rows: auto auto;
+
+  column-gap: 15px;
+
+  align-items: start;
+
+  text-align: left;
+}
+
+
+/* ========================================
+   ЦИФРА
+   ======================================== */
+
+.about-studio__number {
+  grid-column: 1;
+  grid-row: 1 / 3;
+
+  margin: 0;
+
+  font-size: 110px;
+  line-height: 0.8;
+
+  opacity: 0.6;
+}
+
+
+/* ========================================
+   ЗАГОЛОВОК ПУНКТА
+   ======================================== */
+
+.about-studio__advantage-title {
+  grid-column: 2;
+  grid-row: 1;
+
+  margin: 0;
+
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+
+/* ========================================
+   ТЕКСТ ПУНКТА
+   ======================================== */
+
+.about-studio__advantage-text {
+  grid-column: 2;
+  grid-row: 2;
+
+  margin: 12px 0 0;
+
+  max-width: none;
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+}
 </style>

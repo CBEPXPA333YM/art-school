@@ -7,7 +7,7 @@
 
     <div class="hero__image">
       <img
-        src="../../assets/images/hero/hero-image.png"
+        src="../../assets/images/hero/crow.png"
         alt="Рисование"
       >
     </div>
@@ -135,15 +135,10 @@
    .hero {
   display: grid;
 
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-rows: 1fr;
 
   width: 100%;
-
-  /*
-   * Высота макета.
-   * Больше не зависит от высоты окна браузера.
-   */
   height: 800px;
   min-height: 0;
 
@@ -159,32 +154,43 @@
 /* ========================================
    IMAGE
    ======================================== */
-
    .hero__image {
   grid-column: 1 / 5;
   grid-row: 1;
 
-  align-self: end;
-  justify-self: end;
+  align-self: start;
+  justify-self: start;
 
   z-index: 1;
 
-  width: 160%;
+  width: 100%;
+  height: 100%;
 
-  /*
-   * Не позволяем картинке заходить
-   * в область логотипа.
-   */
-  margin-right: 0;
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  overflow: visible;
 }
+
 
 .hero__image img {
   display: block;
 
-  width: 100%;
-  height: auto;
-}
+  height: 140%;
+  width: auto;
 
+  max-width: none;
+  flex-shrink: 0;
+
+  /*
+   * Смещение отдельно от масштаба.
+   */
+  transform: translateX(-45%);
+}
 
 /* ========================================
    LOGO
@@ -368,92 +374,159 @@
 /* ========================================
    MOBILE
    ======================================== */
+   @media (max-width: 600px) {
+    .hero {
+  position: relative;
 
-@media (max-width: 600px) {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
 
-  .hero {
-    grid-template-columns: repeat(4, 1fr);
+  height: auto;
+  min-height: 0;
 
-    min-height: 650px;
-  }
+  /*
+   * Небольшой зазор после контактов.
+   */
+  padding-bottom: 12px;
 
+  overflow: hidden;
 
-  /* Картинка */
-
-  .hero__image {
-    grid-column: 1 / 4;
-    grid-row: 1;
-
-    align-self: end;
-    justify-self: end;
-
-    width: 120%;
-  }
+  box-sizing: border-box;
+}
 
 
-  /* Логотип */
+/* ========================================
+   ЛОГОТИП
+   ======================================== */
+.hero__branding {
+  grid-column: 1;
+  grid-row: 1;
 
-  .hero__branding {
-    grid-column: 1 / 5;
-    grid-row: 1;
+  align-self: start;
+  justify-self: center;
 
-    align-self: start;
+  width: 100%;
 
-    margin-top: 100px;
-  }
-
-
-  .hero__branding img {
-    width: min(80%, 300px);
-  }
-
-
-  /* Контакты */
-
-  .hero__contacts {
-    grid-column: 3 / 5;
-    grid-row: 1;
-
-    align-self: start;
-    justify-self: end;
-
-    margin-top: 20px;
-    margin-right: 20px;
-  }
+  margin-top: 40px;
+}
 
 
-  /* Социальные сети */
+.hero__branding img {
+  display: block;
 
-  .hero__socials {
-    gap: 8px;
+  width: min(80%, 300px);
+  height: auto;
 
-    margin-bottom: 12px;
-  }
-
-
-  .hero__social {
-    width: 28px;
-    height: 28px;
-  }
+  margin: 0 auto;
+}
 
 
-  /* Телефон */
+/* ========================================
+   КАРТИНКА
+   ======================================== */
+   .hero__image {
+  grid-column: 1;
+  grid-row: 2;
 
-  .hero__phone {
-    font-size: 16px;
-  }
+  align-self: start;
+  justify-self: start;
+
+  width: 100%;
+  height: 0;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  overflow: visible;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+.hero__image img {
+  display: block;
+
+  width: 300%;
+  height: auto;
+
+  max-width: none;
+  flex-shrink: 0;
+
+  transform: translateX(-50%);
+}
+
+/* ========================================
+   КОНТАКТЫ
+   ======================================== */
+   .hero__contacts {
+  grid-column: 1;
+  grid-row: 2;
+
+  align-self: start;
+  justify-self: center;
+
+  width: 100%;
+
+  margin-top: 320px;
+  margin-left: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  z-index: 3;
+}
+
+/* ========================================
+   СОЦИАЛЬНЫЕ СЕТИ
+   ======================================== */
+
+.hero__socials {
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
 
 
-  /* Адрес */
+.hero__social {
+  width: 28px;
+  height: 28px;
+}
 
-  .hero__address {
-    font-size: 13px;
-  }
+
+/* ========================================
+   ТЕЛЕФОН
+   ======================================== */
+
+.hero__phone {
+  font-size: 16px;
+}
 
 
-  .hero__second-phone {
-    margin-left: 16px;
-  }
+/* ========================================
+   АДРЕС
+   ======================================== */
+
+.hero__address {
+  margin-top: 10px;
+
+  font-size: 13px;
+  line-height: 1.4;
+
+  text-align: center;
+}
+
+
+.hero__second-phone {
+  margin-left: 0;
+}
 
 }
 </style>
