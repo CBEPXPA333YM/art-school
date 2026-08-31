@@ -1,170 +1,451 @@
+```vue
+<script setup lang="ts">
+
+import {
+  onMounted,
+  onBeforeUnmount,
+  ref
+} from 'vue'
+
+
+/* ========================================
+   YANDEX MAP
+   ======================================== */
+
+const mapElement =
+  ref<HTMLElement | null>(null)
+
+let map: any = null
+
+
+/* ========================================
+   КООРДИНАТЫ СТУДИИ
+   ======================================== */
+
+const studioCoordinates = [
+  37.778604,
+  55.939408
+]
+
+
+/* ========================================
+   LOAD YANDEX MAPS
+   ======================================== */
+
+async function loadYandexMaps() {
+
+  const apiKey =
+    import.meta.env.VITE_YANDEX_MAPS_API_KEY
+
+
+  if (!apiKey) {
+
+    console.error(
+      'Не найден VITE_YANDEX_MAPS_API_KEY'
+    )
+
+    return
+  }
+
+
+  /* ----------------------------------------
+     Если API уже загружен
+     ---------------------------------------- */
+
+  if ((window as any).ymaps3) {
+
+    await initMap()
+
+    return
+  }
+
+
+  /* ----------------------------------------
+     Создаем script
+     ---------------------------------------- */
+
+  const script =
+    document.createElement('script')
+
+
+  script.src =
+    `https://api-maps.yandex.ru/v3/?apikey=${apiKey}&lang=ru_RU`
+
+  script.type =
+    'text/javascript'
+
+
+  /* ----------------------------------------
+     Ждем загрузку
+     ---------------------------------------- */
+
+  await new Promise<void>((resolve, reject) => {
+
+    script.onload = () => resolve()
+
+
+    script.onerror = () => reject(
+      new Error(
+        'Не удалось загрузить Yandex Maps API'
+      )
+    )
+
+
+    document.head.appendChild(script)
+
+  })
+
+
+  await initMap()
+
+}
+
+
+/* ========================================
+   INITIALIZE MAP
+   ======================================== */
+
+async function initMap() {
+
+  if (!mapElement.value) {
+    return
+  }
+
+
+  const ymaps3 =
+    (window as any).ymaps3
+
+
+  if (!ymaps3) {
+
+    console.error(
+      'Yandex Maps API не загружен'
+    )
+
+    return
+  }
+
+
+  await ymaps3.ready
+
+
+  const {
+    YMap,
+    YMapDefaultSchemeLayer,
+    YMapDefaultFeaturesLayer,
+    YMapMarker
+  } = ymaps3
+
+
+  /* ----------------------------------------
+     Создаем карту
+     ---------------------------------------- */
+
+  map = new YMap(
+    mapElement.value,
+    {
+      location: {
+        center: studioCoordinates,
+
+        zoom: 16
+      }
+    }
+  )
+
+
+  /* ----------------------------------------
+     Основной слой карты
+     ---------------------------------------- */
+
+  map.addChild(
+    new YMapDefaultSchemeLayer()
+  )
+
+
+  /* ----------------------------------------
+     Слой объектов
+     ---------------------------------------- */
+
+  map.addChild(
+    new YMapDefaultFeaturesLayer()
+  )
+
+
+  /* ========================================
+     МЕТКА СТУДИИ
+     ======================================== */
+
+  if (!YMapMarker) {
+
+    console.error(
+      'YMapMarker недоступен'
+    )
+
+    return
+  }
+
+
+  /* ----------------------------------------
+     HTML метки
+     ---------------------------------------- */
+
+  const markerElement =
+    document.createElement('div')
+
+
+  markerElement.innerHTML = `
+    <div
+      style="
+        position: relative;
+        width: 36px;
+        height: 36px;
+        background: #d71920;
+        border: 4px solid #ffffff;
+        border-radius: 50% 50% 50% 0;
+        box-sizing: border-box;
+        transform: rotate(-45deg);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      "
+    >
+
+      <div
+        style="
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          background: #ffffff;
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+        "
+      ></div>
+
+    </div>
+  `
+
+
+  /* ----------------------------------------
+     Размер и положение контейнера
+     ---------------------------------------- */
+
+  markerElement.style.width = '36px'
+
+  markerElement.style.height = '36px'
+
+  markerElement.style.transform =
+    'translate(-50%, -100%)'
+
+
+  /* ----------------------------------------
+     Создаем маркер
+     ---------------------------------------- */
+
+  const marker =
+    new YMapMarker(
+      {
+        coordinates:
+          studioCoordinates
+      },
+      markerElement
+    )
+
+
+  /* ----------------------------------------
+     Добавляем маркер
+     ---------------------------------------- */
+
+  map.addChild(marker)
+
+}
+
+
+/* ========================================
+   MOUNT
+   ======================================== */
+
+onMounted(() => {
+
+  loadYandexMaps()
+    .catch(error => {
+
+      console.error(
+        'Ошибка загрузки Яндекс Карт:',
+        error
+      )
+
+    })
+
+})
+
+
+/* ========================================
+   UNMOUNT
+   ======================================== */
+
+onBeforeUnmount(() => {
+
+  if (map) {
+
+    map.destroy()
+
+    map = null
+
+  }
+
+})
+
+</script>
+
+
 <template>
 
   <section
     id="contacts"
-    class="contact"
+    class="contacts"
   >
 
-    <!-- ========================================
-         СТРАНИЦА 1 — ВРЕМЯ ЗАНЯТИЯ
-         ======================================== -->
-
-    <div class="contact__time">
-
-      <div class="contact__time-text">
-
-        <span class="contact__time-gray">
-          время
-        </span>
-
-        <span class="contact__time-gray">
-          занятия
-        </span>
-
-        <span class="contact__time-number">
-          90
-        </span>
-
-        <span class="contact__time-minutes">
-          минут
-        </span>
-
-      </div>
+    <div class="contacts__content">
 
 
-      <div class="contact__clock">
+      <!-- ==================================
+           ЗАГОЛОВОК
+           ================================== -->
 
-        <img
-          src="../../assets/images/contact/clock.png"
-          alt=""
+      <h2 class="contacts__title">
+        АДРЕС СТУДИИ И КОНТАКТЫ
+      </h2>
+
+
+      <!-- ==================================
+           СОЦИАЛЬНЫЕ СЕТИ
+           ================================== -->
+
+      <div class="contacts__socials">
+
+        <a
+          href="#"
+          class="contacts__social"
+          aria-label="VK"
         >
 
+          <img
+            src="../../assets/images/hero/social/vk.png"
+            alt="VK"
+          >
+
+        </a>
+
+
+        <a
+          href="#"
+          class="contacts__social"
+          aria-label="Instagram"
+        >
+
+          <img
+            src="../../assets/images/hero/social/instagram.png"
+            alt="Instagram"
+          >
+
+        </a>
+
+
+        <a
+          href="#"
+          class="contacts__social"
+          aria-label="Facebook"
+        >
+
+          <img
+            src="../../assets/images/hero/social/facebook.png"
+            alt="Facebook"
+          >
+
+        </a>
+
+
+        <a
+          href="#"
+          class="contacts__social"
+          aria-label="WhatsApp"
+        >
+
+          <img
+            src="../../assets/images/hero/social/whatsapp.png"
+            alt="WhatsApp"
+          >
+
+        </a>
+
+
+        <a
+          href="#"
+          class="contacts__social"
+          aria-label="Telegram"
+        >
+
+          <img
+            src="../../assets/images/hero/social/telegram.png"
+            alt="Telegram"
+          >
+
+        </a>
+
       </div>
+
+
+      <!-- ==================================
+           ТЕЛЕФОН
+           ================================== -->
+
+      <a
+        href="tel:+79104697054"
+        class="contacts__phone"
+      >
+        Тел.: +7 910 460 7054
+      </a>
+
+
+      <!-- ==================================
+           АДРЕС
+           ================================== -->
+
+      <address class="contacts__address">
+
+        Адрес: Библиотека №3<br>
+
+        Московская область<br>
+
+        г. Мытищи, ул. Силикатная, д. 37<br>
+
+        тел.: +7 910 469 7054<br>
+
+        <span class="contacts__second-phone">
+          +7 (495) 583 7 34 1
+        </span><br>
+
+        mail: lsbigwings@gmail.com<br>
+
+        <span class="contacts__second-phone">
+          biblioteka_3@mail.ru
+        </span><br>
+
+      </address>
 
     </div>
 
 
-    <!-- ========================================
-         СТРАНИЦА 2 — АДРЕС И КОНТАКТЫ
-         ======================================== -->
+    <!-- ==================================
+         ЯНДЕКС КАРТА
+         ================================== -->
 
-    <div class="contact__map-section">
+    <div class="contacts__map-wrapper">
 
-      <!-- Карта -->
-
-      <img
-        class="contact__map"
-        src="../../assets/images/contact/Map.png"
-        alt=""
-      >
-
-
-      <!-- Контакты -->
-
-      <div class="contact__content">
-
-        <h2 class="contact__title">
-          АДРЕС СТУДИИ И КОНТАКТЫ
-        </h2>
-
-
-        <!-- Социальные сети -->
-
-        <div class="contact__socials">
-
-          <a
-            href="#"
-            class="contact__social"
-            aria-label="VK"
-          >
-            <img
-              src="../../assets/images/hero/social/vk.png"
-              alt="VK"
-            >
-          </a>
-
-          <a
-            href="#"
-            class="contact__social"
-            aria-label="Instagram"
-          >
-            <img
-              src="../../assets/images/hero/social/instagram.png"
-              alt="Instagram"
-            >
-          </a>
-
-          <a
-            href="#"
-            class="contact__social"
-            aria-label="Facebook"
-          >
-            <img
-              src="../../assets/images/hero/social/facebook.png"
-              alt="Facebook"
-            >
-          </a>
-
-          <a
-            href="#"
-            class="contact__social"
-            aria-label="WhatsApp"
-          >
-            <img
-              src="../../assets/images/hero/social/whatsapp.png"
-              alt="WhatsApp"
-            >
-          </a>
-
-          <a
-            href="#"
-            class="contact__social"
-            aria-label="Telegram"
-          >
-            <img
-              src="../../assets/images/hero/social/telegram.png"
-              alt="Telegram"
-            >
-          </a>
-
-        </div>
-
-
-        <!-- Телефон -->
-
-        <a
-          href="tel:+79104697054"
-          class="contact__phone"
-        >
-          Тел.: +7 910 460 7054
-        </a>
-
-
-        <!-- Адрес -->
-
-        <address class="contact__address">
-
-          Адрес: Библиотека №3<br>
-
-          Московская область<br>
-
-          г. Мытищи, ул. Силикатная, д. 37<br>
-
-          тел.: +7 910 469 7054<br>
-
-          <span class="contact__second-phone">
-            +7 (495) 583 7 34 1
-          </span><br>
-
-          mail: lsbigwings@gmail.com<br>
-
-          <span class="contact__second-phone">
-            biblioteka_3@mail.ru
-          </span><br>
-
-        </address>
-
-      </div>
+      <div
+        ref="mapElement"
+        class="contacts__map"
+      ></div>
 
     </div>
 
@@ -177,147 +458,19 @@
 
 
 /* ========================================
-   CONTACT
+   CONTACTS
    ======================================== */
 
-.contact {
-  width: 100%;
-
-  background-color: #ffffff;
-}
-
-
-/* ========================================
-   СТРАНИЦА 1
-   ======================================== */
-
-.contact__time {
+.contacts {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
 
   width: 100%;
 
-  background-color: #ffffff;
-}
+  height: 600px;
 
-
-/* ========================================
-   ТЕКСТ ВРЕМЕНИ
-   ======================================== */
-
-.contact__time-text {
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-}
-
-
-/* Серые слова */
-
-.contact__time-gray {
-  display: block;
-
-  color: #999999;
-
-  font-size: 80px;
-  font-weight: 400;
-
-  line-height: 0.9;
-}
-
-
-/* 90 */
-
-.contact__time-number {
-  display: block;
-
-  margin-top: 5px;
-
-  color: #d71920;
-
-  font-size: 300px;
-  font-weight: 700;
-
-  line-height: 0.75;
-
-  text-decoration: underline;
-}
-
-
-/* минут */
-
-.contact__time-minutes {
-  display: block;
-
-  margin-top: 35px;
-
-  color: #d71920;
-
-  font-size: 80px;
-  font-weight: 400;
-
-  line-height: 0.9;
-}
-
-
-/* ========================================
-   CLOCK
-   ======================================== */
-
-.contact__clock {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-}
-
-.contact__clock img {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  max-width: 700px;
-}
-
-
-/* ========================================
-   СТРАНИЦА 2 — MAP
-   ======================================== */
-
-.contact__map-section {
-  position: relative;
-
-  width: 100%;
-
-  overflow: visible;
-
-  background-color: #ffffff;
-}
-
-
-/* ========================================
-   MAP
-   ======================================== */
-
-.contact__map {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  max-width: none;
-
-  object-fit: contain;
-
-  pointer-events: none;
+  background-color: #eeedee;
 }
 
 
@@ -325,22 +478,20 @@
    CONTENT
    ======================================== */
 
-.contact__content {
-  position: absolute;
-
-  top: 50%;
-  left: 8%;
-
-  transform: translateY(-50%);
-
+.contacts__content {
   display: flex;
+
   flex-direction: column;
 
   align-items: flex-start;
 
-  text-align: left;
+  justify-content: center;
 
-  z-index: 2;
+  padding: 80px;
+
+  box-sizing: border-box;
+
+  text-align: left;
 }
 
 
@@ -348,17 +499,16 @@
    TITLE
    ======================================== */
 
-.contact__title {
+.contacts__title {
   margin: 0 0 30px;
 
   color: #d71920;
 
   font-size: 36px;
+
   font-weight: 700;
 
   line-height: 1.1;
-
-  white-space: nowrap;
 }
 
 
@@ -366,7 +516,7 @@
    SOCIALS
    ======================================== */
 
-.contact__socials {
+.contacts__socials {
   display: flex;
 
   align-items: center;
@@ -377,21 +527,24 @@
 }
 
 
-.contact__social {
+.contacts__social {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   width: 40px;
+
   height: 40px;
 }
 
 
-.contact__social img {
+.contacts__social img {
   display: block;
 
   width: 100%;
+
   height: 100%;
 
   object-fit: contain;
@@ -402,12 +555,13 @@
    PHONE
    ======================================== */
 
-.contact__phone {
+.contacts__phone {
   display: block;
 
   color: #000000;
 
   font-size: 24px;
+
   font-weight: 600;
 
   line-height: 1.3;
@@ -418,7 +572,7 @@
 }
 
 
-.contact__phone:hover {
+.contacts__phone:hover {
   opacity: 0.6;
 }
 
@@ -427,12 +581,13 @@
    ADDRESS
    ======================================== */
 
-.contact__address {
+.contacts__address {
   margin: 14px 0 0;
 
   color: #000000;
 
   font-size: 18px;
+
   font-weight: 400;
 
   line-height: 1.4;
@@ -443,14 +598,38 @@
 }
 
 
-/* ========================================
-   SECOND PHONE / EMAIL
-   ======================================== */
-
-.contact__second-phone {
+.contacts__second-phone {
   display: inline-block;
 
   margin-left: 44px;
+}
+
+
+/* ========================================
+   MAP WRAPPER
+   ======================================== */
+
+.contacts__map-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: 600px;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   MAP
+   ======================================== */
+
+.contacts__map {
+  width: 100%;
+
+  height: 100%;
+
+  overflow: hidden;
 }
 
 
@@ -460,49 +639,40 @@
 
 @media (max-width: 1000px) {
 
-  /* Время */
-
-  .contact__time-gray,
-  .contact__time-minutes {
-    font-size: 60px;
+  .contacts {
+    height: 500px;
   }
 
 
-  .contact__time-number {
-    font-size: 220px;
+  .contacts__content {
+    padding: 50px;
   }
 
 
-  .contact__clock img {
-    max-width: 500px;
-  }
-
-
-  /* Контакты */
-
-  .contact__content {
-    left: 5%;
-  }
-
-
-  .contact__title {
+  .contacts__title {
     font-size: 30px;
   }
 
 
-  .contact__social {
+  .contacts__social {
     width: 34px;
+
     height: 34px;
   }
 
 
-  .contact__phone {
+  .contacts__phone {
     font-size: 20px;
   }
 
 
-  .contact__address {
+  .contacts__address {
     font-size: 16px;
+  }
+
+
+  .contacts__map-wrapper {
+    height: 500px;
   }
 
 }
@@ -512,172 +682,94 @@
    MOBILE
    ======================================== */
 
-   @media (max-width: 600px) {
+@media (max-width: 600px) {
 
-/* ======================================
-   СТРАНИЦА 1 — ВРЕМЯ
-   ====================================== */
+  .contacts {
+    display: flex;
 
-.contact__time {
-  grid-template-columns: 1fr;
+    flex-direction: column;
 
-  padding: 40px 0 50px;
-}
+    height: auto;
 
-
-.contact__time-text {
-  order: 1;
-}
+    min-height: 0;
+  }
 
 
-.contact__clock {
-  order: 2;
+  .contacts__content {
+    order: 1;
 
-  margin-top: 30px;
-}
+    width: 100%;
 
+    padding: 50px 25px;
 
-.contact__time-gray,
-.contact__time-minutes {
-  font-size: 50px;
-}
+    align-items: center;
 
-
-.contact__time-number {
-  font-size: 180px;
-}
+    text-align: center;
+  }
 
 
-.contact__clock img {
-  width: 80%;
-  max-width: 400px;
-}
+  .contacts__title {
+    margin-bottom: 20px;
+
+    font-size: 24px;
+
+    line-height: 1.1;
+
+    text-align: center;
+  }
 
 
-/* ======================================
-   СТРАНИЦА 2 — КАРТА
-   ====================================== */
+  .contacts__socials {
+    gap: 8px;
 
-.contact__map-section {
-  position: relative;
-
-  width: 100%;
-  height: 650px;
-
-  overflow: hidden;
-
-  background-color: #ffffff;
-}
+    margin-bottom: 18px;
+  }
 
 
-/* ======================================
-   КАРТА
-   ====================================== */
+  .contacts__social {
+    width: 30px;
 
-.contact__map {
-  position: absolute;
-
-  top: 0;
-  left: 50%;
-
-  width: auto;
-  height: 100%;
-
-  max-width: none;
-
-  transform: translateX(-50%);
-
-  object-fit: cover;
-
-  z-index: 1;
-}
+    height: 30px;
+  }
 
 
-/* ======================================
-   КОНТАКТЫ
-   ====================================== */
-
-.contact__content {
-  position: absolute;
-
-  top: 50%;
-  left: 5%;
-  right: 5%;
-
-  width: auto;
-  max-width: none;
-
-  transform: translateY(-50%);
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-
-  text-align: center;
-
-  z-index: 2;
-}
+  .contacts__phone {
+    font-size: 18px;
+  }
 
 
-/* ======================================
-   ЗАГОЛОВОК
-   ====================================== */
+  .contacts__address {
+    margin-top: 10px;
 
-.contact__title {
-  margin: 0 0 20px;
+    font-size: 14px;
 
-  font-size: 24px;
+    line-height: 1.4;
 
-  line-height: 1.1;
-
-  white-space: normal;
-}
+    text-align: center;
+  }
 
 
-/* ======================================
-   СОЦИАЛЬНЫЕ СЕТИ
-   ====================================== */
-
-.contact__socials {
-  gap: 8px;
-
-  margin-bottom: 18px;
-}
+  .contacts__second-phone {
+    margin-left: 0;
+  }
 
 
-.contact__social {
-  width: 30px;
-  height: 30px;
-}
+  .contacts__map-wrapper {
+    order: 2;
+
+    width: 100%;
+
+    height: 400px;
+  }
 
 
-/* ======================================
-   ТЕЛЕФОН
-   ====================================== */
+  .contacts__map {
+    width: 100%;
 
-.contact__phone {
-  font-size: 18px;
-}
-
-
-/* ======================================
-   АДРЕС
-   ====================================== */
-
-.contact__address {
-  margin-top: 10px;
-
-  font-size: 14px;
-  line-height: 1.4;
-
-  text-align: center;
-}
-
-
-.contact__second-phone {
-  margin-left: 0;
-}
+    height: 400px;
+  }
 
 }
+
 </style>
+```

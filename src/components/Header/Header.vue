@@ -23,6 +23,10 @@
         <a href="#schedule">
           Стоимость
         </a>
+        
+        <a href="#contacts"> 
+          Адрес 
+        </a>
 
       </nav>
 

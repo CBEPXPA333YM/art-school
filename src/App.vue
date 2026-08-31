@@ -10,7 +10,7 @@ import DrawingProgram from './components/DrawingProgram/DrawingProgram.vue'
 import MaterialsTechniques from './components/MaterialsTechniques/MaterialsTechniques.vue'
 import ScheduleAndPrice from './components/ScheduleAndPrice/ScheduleAndPrice.vue'
 import Contact from './components/Contact/Contact.vue'
-
+import LessonTime from './components/LessonTime/LessonTime.vue'
 </script>
 
 <template>
@@ -34,6 +34,8 @@ import Contact from './components/Contact/Contact.vue'
     <MaterialsTechniques />
 
     <ScheduleAndPrice />
+
+    <LessonTime />
 
     <Contact />
   </main>
