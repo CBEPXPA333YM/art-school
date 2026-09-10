@@ -1,4 +1,4 @@
-```vue
+
 <script setup lang="ts">
 
 import {
@@ -321,78 +321,34 @@ onBeforeUnmount(() => {
            СОЦИАЛЬНЫЕ СЕТИ
            ================================== -->
 
-      <div class="contacts__socials">
+<div class="contacts__socials">
 
-        <a
-          href="#"
-          class="contacts__social"
-          aria-label="VK"
-        >
-
-          <img
-            src="../../assets/images/hero/social/vk.png"
-            alt="VK"
-          >
-
-        </a>
+  <a
+    href="#"
+    class="contacts__social"
+    aria-label="MAX"
+  >
+    <img
+      src="../../assets/images/hero/social/max_pict.png"
+      alt="MAX"
+    >
+  </a>
 
 
-        <a
-          href="#"
-          class="contacts__social"
-          aria-label="Instagram"
-        >
+  <a
+    href="#"
+    class="contacts__social"
+    aria-label="VK"
+  >
+    <img
+      src="../../assets/images/hero/social/vk_pict.png"
+      alt="VK"
+    >
+  </a>
 
-          <img
-            src="../../assets/images/hero/social/instagram.png"
-            alt="Instagram"
-          >
-
-        </a>
-
-
-        <a
-          href="#"
-          class="contacts__social"
-          aria-label="Facebook"
-        >
-
-          <img
-            src="../../assets/images/hero/social/facebook.png"
-            alt="Facebook"
-          >
-
-        </a>
+</div>
 
 
-        <a
-          href="#"
-          class="contacts__social"
-          aria-label="WhatsApp"
-        >
-
-          <img
-            src="../../assets/images/hero/social/whatsapp.png"
-            alt="WhatsApp"
-          >
-
-        </a>
-
-
-        <a
-          href="#"
-          class="contacts__social"
-          aria-label="Telegram"
-        >
-
-          <img
-            src="../../assets/images/hero/social/telegram.png"
-            alt="Telegram"
-          >
-
-        </a>
-
-      </div>
 
 
       <!-- ==================================
@@ -483,7 +439,8 @@ onBeforeUnmount(() => {
 
   flex-direction: column;
 
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 
   justify-content: center;
 
@@ -491,7 +448,6 @@ onBeforeUnmount(() => {
 
   box-sizing: border-box;
 
-  text-align: left;
 }
 
 
@@ -518,7 +474,7 @@ onBeforeUnmount(() => {
 
 .contacts__socials {
   display: flex;
-
+  align-self: center;
   align-items: center;
 
   gap: 14px;
@@ -772,4 +728,4 @@ onBeforeUnmount(() => {
 }
 
 </style>
-```
+

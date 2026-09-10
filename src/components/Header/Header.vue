@@ -85,4 +85,42 @@
     opacity: 0.6;
   }
 }
+
+@media (max-width: 600px) {
+
+.header {
+  padding: 16px 0;
+}
+
+
+.header__inner {
+  gap: 0;
+}
+
+
+.header__nav {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-rows: repeat(3, auto);
+
+  width: 100%;
+
+  row-gap: 14px;
+
+  column-gap: 8px;
+
+  font-size: 13px;
+}
+
+
+.header__nav a {
+  flex: none;
+
+  text-align: center;
+}
+
+}
+
 </style>

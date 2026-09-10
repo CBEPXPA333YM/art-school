@@ -31,66 +31,36 @@
 
     <div class="hero__contacts">
 
-      <!-- Социальные сети -->
+<!-- Социальные сети -->
 
-      <div class="hero__socials">
+<div class="hero__socials">
 
-        <a
-          href="#"
-          class="hero__social"
-          aria-label="VK"
-        >
-          <img
-            src="../../assets/images/hero/social/vk.png"
-            alt="VK"
-          >
-        </a>
+  <a
+    href="#"
+    class="hero__social"
+    aria-label="MAX"
+  >
+    <img
+      src="../../assets/images/hero/social/max_pict.png"
+      alt="MAX"
+    >
+  </a>
 
-        <a
-          href="#"
-          class="hero__social"
-          aria-label="Instagram"
-        >
-          <img
-            src="../../assets/images/hero/social/instagram.png"
-            alt="Instagram"
-          >
-        </a>
 
-        <a
-          href="#"
-          class="hero__social"
-          aria-label="Facebook"
-        >
-          <img
-            src="../../assets/images/hero/social/facebook.png"
-            alt="Facebook"
-          >
-        </a>
+  <a
+    href="#"
+    class="hero__social"
+    aria-label="VK"
+  >
+    <img
+      src="../../assets/images/hero/social/vk_pict.png"
+      alt="VK"
+    >
+  </a>
 
-        <a
-          href="#"
-          class="hero__social"
-          aria-label="WhatsApp"
-        >
-          <img
-            src="../../assets/images/hero/social/whatsapp.png"
-            alt="WhatsApp"
-          >
-        </a>
+</div>
 
-        <a
-          href="#"
-          class="hero__social"
-          aria-label="Telegram"
-        >
-          <img
-            src="../../assets/images/hero/social/telegram.png"
-            alt="Telegram"
-          >
-        </a>
 
-      </div>
 
 
       <!-- Телефон -->
@@ -248,7 +218,7 @@
 .hero__socials {
   display: flex;
   align-items: center;
-
+  align-self: center;
   gap: 14px;
 
   margin-bottom: 24px;
@@ -489,9 +459,11 @@
    ======================================== */
 
 .hero__socials {
+  
   gap: 8px;
 
   margin-bottom: 12px;
+  margin-left: 100px;
 }
 
 
