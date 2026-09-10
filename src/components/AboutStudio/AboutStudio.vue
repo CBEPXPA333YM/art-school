@@ -32,10 +32,23 @@
       <!-- Вишня -->
 
       <div class="about-studio__intro-image">
+
+        <!-- Десктопная версия -->
+
         <img
+          class="cherry-desktop"
           src="../../assets/images/about-studio/cherry.png"
           alt="Занятие в изостудии"
         >
+
+        <!-- Мобильная версия -->
+
+        <img
+          class="cherry-mobile"
+          src="../../assets/images/about-studio/cherry_mobile.png"
+          alt="Занятие в изостудии"
+        >
+
       </div>
 
     </div>
@@ -233,6 +246,7 @@
   height: 100%;
 }
 
+
 .about-studio__intro-image img {
   display: block;
 
@@ -241,6 +255,15 @@
 
   object-fit: cover;
   object-position: center;
+}
+
+
+/* ========================================
+   МОБИЛЬНАЯ ВИШНЯ ПО УМОЛЧАНИЮ СКРЫТА
+   ======================================== */
+
+.cherry-mobile {
+  display: none !important;
 }
 
 
@@ -265,7 +288,7 @@
    ADVANTAGES TITLE
    ======================================== */
 
-   .about-studio__advantages-title {
+.about-studio__advantages-title {
   position: relative;
 
   z-index: 2;
@@ -302,6 +325,7 @@
   pointer-events: none;
 }
 
+
 .about-studio__advantages-image img {
   display: block;
 
@@ -331,6 +355,7 @@
   /*
    * Опускаем преимущества ниже рыбы.
    */
+
   margin-top: 250px;
 }
 
@@ -468,205 +493,237 @@
    MOBILE
    ======================================== */
 
-   @media (max-width: 600px) {
+@media (max-width: 600px) {
 
-/* ========================================
-   1. О СТУДИИ
-   ======================================== */
+  /* ========================================
+     1. О СТУДИИ
+     ======================================== */
 
-.about-studio__intro {
-  grid-template-columns: 1fr;
-}
+  .about-studio__intro {
+    position: relative;
 
+    grid-template-columns: 1fr;
 
-.about-studio__content {
-  padding: 50px 25px;
-}
+    overflow: visible;
+  }
 
 
-.about-studio__title {
-  font-size: 26px;
-}
+  .about-studio__content {
+    padding: 50px 25px;
+  }
 
 
-.about-studio__subtitle {
-  margin-top: 18px;
+  .about-studio__title {
+    font-size: 26px;
+  }
 
-  font-size: 21px;
-  line-height: 1.2;
-}
 
+  .about-studio__subtitle {
+    margin-top: 18px;
 
-.about-studio__description {
-  margin-top: 24px;
+    font-size: 21px;
+    line-height: 1.2;
+  }
 
-  font-size: 16px;
-  line-height: 1.5;
-}
 
+  .about-studio__description {
+    margin-top: 24px;
 
-/* ========================================
-   ВИШНЯ
-   ======================================== */
+    font-size: 16px;
+    line-height: 1.5;
+  }
 
-.about-studio__intro-image {
-  display: none;
-}
 
+  /* ========================================
+     ВИШНЯ
+     ======================================== */
 
-/* ========================================
-   2. ВЫ СМОЖЕТЕ
-   ======================================== */
+  .about-studio__intro-image {
+    position: absolute;
 
-.about-studio__advantages {
-  display: flex;
-  flex-direction: column;
+    right: 0;
+    top: -80px;
 
-  padding: 0 25px 50px;
+    z-index: 3;
 
-  overflow: hidden;
-}
+    display: block;
 
+    width: 200px;
+    height: 200px;
+  }
 
-/* ========================================
-   РЫБА
-   ======================================== */
-   .about-studio__advantages-image {
-  position: relative;
 
-  top: auto;
-  left: auto;
+  .about-studio__intro-image .cherry-desktop {
+    display: none;
+  }
 
-  order: 1;
 
-  width: 100%;
-  height: auto;
+  .about-studio__intro-image .cherry-mobile {
+    display: block !important;
 
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100%;
 
-  transform: none;
+    object-fit: contain;
+    object-position: center;
+  }
 
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 
-  pointer-events: none;
-}
+  /* ========================================
+     2. ВЫ СМОЖЕТЕ
+     ======================================== */
 
+  .about-studio__advantages {
+    display: flex;
+    flex-direction: column;
 
-.about-studio__advantages-image img {
-  display: block;
+    padding: 0 25px 50px;
 
-  width: 420px;
-  height: auto;
+    overflow: hidden;
+  }
 
-  max-width: none;
 
-  object-fit: contain;
-  object-position: top center;
-}
+  /* ========================================
+     РЫБА
+     ======================================== */
 
-/* ========================================
-   ЗАГОЛОВОК
-   ======================================== */
+  .about-studio__advantages-image {
+    position: relative;
 
-.about-studio__advantages-title {
-  position: relative;
+    top: auto;
+    left: auto;
 
-  z-index: 2;
+    order: 1;
 
-  order: 2;
+    width: 100%;
+    height: auto;
 
-  margin: 0 0 40px;
+    margin: 0;
+    padding: 0;
 
-  font-size: 26px;
+    transform: none;
 
-  transform: none;
-}
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
+    pointer-events: none;
+  }
 
-/* ========================================
-   СПИСОК
-   ======================================== */
 
-.about-studio__advantages-list {
-  order: 3;
+  .about-studio__advantages-image img {
+    display: block;
 
-  display: flex;
-  flex-direction: column;
+    width: 380px;
+    height: auto;
 
-  gap: 45px;
+    max-width: none;
 
-  margin-top: 0;
-}
+    object-fit: contain;
+    object-position: top center;
+  }
 
 
-/* ========================================
-   ОДИН ПУНКТ
-   ======================================== */
+  /* ========================================
+     ЗАГОЛОВОК
+     ======================================== */
 
-.about-studio__advantage {
-  display: grid;
+  .about-studio__advantages-title {
+    position: relative;
 
-  grid-template-columns: 90px 1fr;
-  grid-template-rows: auto auto;
+    z-index: 2;
 
-  column-gap: 15px;
+    order: 2;
 
-  align-items: start;
+    margin: 0 0 40px;
 
-  text-align: left;
-}
+    font-size: 26px;
 
+    transform: none;
+  }
 
-/* ========================================
-   ЦИФРА
-   ======================================== */
 
-.about-studio__number {
-  grid-column: 1;
-  grid-row: 1 / 3;
+  /* ========================================
+     СПИСОК
+     ======================================== */
 
-  margin: 0;
+  .about-studio__advantages-list {
+    order: 3;
 
-  font-size: 110px;
-  line-height: 0.8;
+    display: flex;
+    flex-direction: column;
 
-  opacity: 0.6;
-}
+    gap: 45px;
 
+    margin-top: 0;
+  }
 
-/* ========================================
-   ЗАГОЛОВОК ПУНКТА
-   ======================================== */
 
-.about-studio__advantage-title {
-  grid-column: 2;
-  grid-row: 1;
+  /* ========================================
+     ОДИН ПУНКТ
+     ======================================== */
 
-  margin: 0;
+  .about-studio__advantage {
+    display: grid;
 
-  font-size: 20px;
-  line-height: 1.2;
-}
+    grid-template-columns: 90px 1fr;
+    grid-template-rows: auto auto;
 
+    column-gap: 15px;
 
-/* ========================================
-   ТЕКСТ ПУНКТА
-   ======================================== */
+    align-items: start;
 
-.about-studio__advantage-text {
-  grid-column: 2;
-  grid-row: 2;
+    text-align: left;
+  }
 
-  margin: 12px 0 0;
 
-  max-width: none;
+  /* ========================================
+     ЦИФРА
+     ======================================== */
 
-  font-size: 16px;
-  line-height: 1.5;
-}
+  .about-studio__number {
+    grid-column: 1;
+    grid-row: 1 / 3;
+
+    margin: 0;
+
+    font-size: 110px;
+    line-height: 0.8;
+
+    opacity: 0.6;
+  }
+
+
+  /* ========================================
+     ЗАГОЛОВОК ПУНКТА
+     ======================================== */
+
+  .about-studio__advantage-title {
+    grid-column: 2;
+    grid-row: 1;
+
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+
+  /* ========================================
+     ТЕКСТ ПУНКТА
+     ======================================== */
+
+  .about-studio__advantage-text {
+    grid-column: 2;
+    grid-row: 2;
+
+    margin: 12px 0 0;
+
+    max-width: none;
+
+    font-size: 16px;
+    line-height: 1.5;
+  }
 
 }
 </style>

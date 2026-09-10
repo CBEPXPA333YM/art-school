@@ -36,7 +36,7 @@
 <div class="hero__socials">
 
   <a
-    href="#"
+    href="https://vk.ru/sverhra333um"
     class="hero__social"
     aria-label="MAX"
   >
@@ -48,7 +48,7 @@
 
 
   <a
-    href="#"
+    href="https://vk.ru/sverhra333um"
     class="hero__social"
     aria-label="VK"
   >

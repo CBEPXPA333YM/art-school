@@ -12,20 +12,20 @@
           Программа обучения
         </a>
 
+        <a href="#schedule">
+          Расписание
+        </a>
+
         <a href="#works">
           Примеры работ
         </a>
 
         <a href="#schedule">
-          Расписание
-        </a>
-
-        <a href="#schedule">
           Стоимость
         </a>
-        
-        <a href="#contacts"> 
-          Адрес 
+
+        <a href="#contacts">
+          Адрес
         </a>
 
       </nav>
@@ -86,41 +86,45 @@
   }
 }
 
+
 @media (max-width: 600px) {
 
-.header {
-  padding: 16px 0;
+  .header {
+    padding: 16px 0;
+  }
+
+
+  .header__inner {
+    gap: 0;
+  }
+
+
+  .header__nav {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-rows: repeat(3, auto);
+
+    width: 100%;
+
+    row-gap: 14px;
+
+    column-gap: 0px;
+
+    font-size: 13px;
+  }
+
+
+  .header__nav a {
+    flex: none;
+
+    text-align: left;
+  }
+
+  .header__nav a:nth-child(even) {
+    transform: translateX(-50px);
+  }
+
 }
-
-
-.header__inner {
-  gap: 0;
-}
-
-
-.header__nav {
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  grid-template-rows: repeat(3, auto);
-
-  width: 100%;
-
-  row-gap: 14px;
-
-  column-gap: 8px;
-
-  font-size: 13px;
-}
-
-
-.header__nav a {
-  flex: none;
-
-  text-align: center;
-}
-
-}
-
 </style>
