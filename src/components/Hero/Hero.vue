@@ -36,7 +36,7 @@
 <div class="hero__socials">
 
   <a
-    href="https://vk.ru/sverhra333um"
+    href="https://max.ru/join/7aPCcK1FllGEZFkF3d1EpHNFLQtPLowBLjuqQON-sdE"
     class="hero__social"
     aria-label="MAX"
   >
@@ -48,7 +48,7 @@
 
 
   <a
-    href="https://vk.ru/sverhra333um"
+    href="https://vk.ru/id894290004"
     class="hero__social"
     aria-label="VK"
   >

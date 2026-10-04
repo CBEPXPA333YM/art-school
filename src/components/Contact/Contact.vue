@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
 <div class="contacts__socials">
 
   <a
-    href="https://vk.ru/sverhra333um"
+    href="https://max.ru/join/7aPCcK1FllGEZFkF3d1EpHNFLQtPLowBLjuqQON-sdE"
     class="contacts__social"
     aria-label="MAX"
   >
@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
 
 
   <a
-    href="https://vk.ru/sverhra333um"
+    href="https://vk.ru/id894290004"
     class="contacts__social"
     aria-label="VK"
   >

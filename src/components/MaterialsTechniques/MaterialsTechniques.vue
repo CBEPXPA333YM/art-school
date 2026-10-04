@@ -250,7 +250,7 @@ const rightItems = [
    ======================================== */
 
 .materials-techniques__item-text {
-  margin: 12px 0 0;
+  margin: -14px 0 0;
 
   color: #000000;
 
