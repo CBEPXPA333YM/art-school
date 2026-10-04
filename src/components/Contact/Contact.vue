@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
 <div class="contacts__socials">
 
   <a
-    href="https://max.ru/join/7aPCcK1FllGEZFkF3d1EpHNFLQtPLowBLjuqQON-sdE"
+    href="https://max.ru/join/nr41lAQdSKj4CAec2Q2u3WcIEUveAYGNNPoZUXzrEYI"
     class="contacts__social"
     aria-label="MAX"
   >

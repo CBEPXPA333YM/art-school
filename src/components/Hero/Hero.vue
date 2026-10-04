@@ -36,7 +36,7 @@
 <div class="hero__socials">
 
   <a
-    href="https://max.ru/join/7aPCcK1FllGEZFkF3d1EpHNFLQtPLowBLjuqQON-sdE"
+    href="https://max.ru/join/nr41lAQdSKj4CAec2Q2u3WcIEUveAYGNNPoZUXzrEYI"
     class="hero__social"
     aria-label="MAX"
   >
